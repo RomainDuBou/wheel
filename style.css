@@ -43,7 +43,11 @@ body {
 /* ===== Background Effects ===== */
 .background-effects {
     position: fixed;
-    inset: 0;
+    /* S'étendre au-delà des safe areas pour couvrir tout l'écran */
+    top: calc(-1 * env(safe-area-inset-top, 0px));
+    bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+    left: calc(-1 * env(safe-area-inset-left, 0px));
+    right: calc(-1 * env(safe-area-inset-right, 0px));
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
@@ -116,7 +120,11 @@ body {
     z-index: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 1rem 0;
+    /* Padding qui prend en compte les safe areas iPhone */
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 .screen.active {
@@ -713,6 +721,9 @@ body {
     visibility: hidden;
     transition: all 0.4s;
     padding: 1rem;
+    /* Safe areas pour iPhone */
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
 }
 
 .modal.active {
