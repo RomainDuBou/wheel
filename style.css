@@ -26,6 +26,8 @@
 html {
     font-size: 14px;
     scroll-behavior: smooth;
+    /* Empêcher le zoom sur iOS quand on tape dans un input */
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -187,7 +189,7 @@ body {
 
 /* ===== Buttons ===== */
 .btn-primary {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
@@ -206,6 +208,8 @@ body {
     box-shadow: 0 8px 30px var(--primary-glow);
     width: 100%;
     max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .btn-primary::before {
@@ -246,7 +250,7 @@ body {
 }
 
 .btn-secondary {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
@@ -262,6 +266,8 @@ body {
     transition: all 0.3s ease;
     box-shadow: 0 8px 30px var(--secondary-glow);
     margin-top: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
     max-width: 280px;
 }
@@ -401,13 +407,17 @@ body {
     width: 100%;
     padding: 0.875rem 1.25rem;
     font-family: var(--font-body);
-    font-size: 1rem;
+    /* 16px minimum pour éviter le zoom auto sur iOS */
+    font-size: 16px;
     color: var(--text);
     background: var(--bg-card);
     border: 2px solid rgba(255,255,255,0.1);
     border-radius: 14px;
     outline: none;
     transition: all 0.3s;
+    /* Empêcher le zoom sur mobile */
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .form-group input[type="text"]:focus {
@@ -608,6 +618,9 @@ body {
 }
 
 .btn-spin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 1rem 2rem;
     font-family: var(--font-display);
     font-size: 1.4rem;
@@ -621,6 +634,8 @@ body {
     box-shadow: 0 8px 30px var(--accent-glow);
     width: 100%;
     max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .btn-spin:hover:not(:disabled) {
