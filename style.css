@@ -28,6 +28,8 @@ html {
     scroll-behavior: smooth;
     /* Empêcher le zoom sur iOS quand on tape dans un input */
     -webkit-text-size-adjust: 100%;
+    /* Background qui couvre TOUT l'écran y compris derrière la Dynamic Island */
+    background: var(--bg-dark);
 }
 
 body {
@@ -40,17 +42,32 @@ body {
     position: relative;
 }
 
+/* Background qui couvre TOUT y compris derrière la Dynamic Island */
+body::before {
+    content: '';
+    position: fixed;
+    top: -100px;
+    left: 0;
+    right: 0;
+    bottom: -100px;
+    background: var(--bg-dark);
+    z-index: -1;
+}
+
 /* ===== Background Effects ===== */
 .background-effects {
     position: fixed;
-    /* S'étendre au-delà des safe areas pour couvrir tout l'écran */
-    top: calc(-1 * env(safe-area-inset-top, 0px));
-    bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
-    left: calc(-1 * env(safe-area-inset-left, 0px));
-    right: calc(-1 * env(safe-area-inset-right, 0px));
+    /* Couvrir TOUT l'écran, y compris derrière Dynamic Island */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
+    background: var(--bg-dark);
 }
 
 .gradient-orb {
