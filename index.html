@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Roue des Gages 🎲</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Écran d'accueil -->
+    <section id="landing" class="screen active">
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo-ring"></div>
+                <h1 class="main-title">
+                    <span class="title-line">LA ROUE</span>
+                    <span class="title-line accent">DES GAGES</span>
+                </h1>
+            </div>
+            <p class="tagline">Ose tourner la roue baby girl. Accepte ton destin.</p>
+            <button class="btn-primary pulse" onclick="showRegistration()">
+                <span>JOUER</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Écran d'inscription -->
+    <section id="registration" class="screen">
+        <div class="container">
+            <button class="btn-back" onclick="showLanding()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <h2 class="section-title">QUI JOUE ?</h2>
+            
+            <!-- Quick select pour les potes -->
+            <div class="quick-select">
+                <h3>La team 👊</h3>
+                <div class="quick-buttons">
+                    <button type="button" class="quick-btn male" onclick="quickAddPlayer('Randy', 'male')">👨 Randy</button>
+                    <button type="button" class="quick-btn male" onclick="quickAddPlayer('Romain', 'male')">👨 Romain</button>
+                    <button type="button" class="quick-btn male" onclick="quickAddPlayer('Nas', 'male')">👨 Nas</button>
+                    <button type="button" class="quick-btn male" onclick="quickAddPlayer('Cyanic', 'male')">👨 Cyanic</button>
+                </div>
+            </div>
+            
+            <div class="separator">
+                <span>ou ajouter quelqu'un (de préférence des babies)</span>
+            </div>
+            
+            <form id="player-form" onsubmit="return registerPlayer(event)">
+                <div class="form-group">
+                    <label for="playerName">Ton prénom</label>
+                    <input type="text" id="playerName" placeholder="Entre ton prénom..." required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>Ton genre</label>
+                    <div class="gender-selector">
+                        <input type="radio" name="gender" id="male" value="male" required>
+                        <label for="male" class="gender-card">
+                            <div class="gender-icon">👨</div>
+                            <span>Homme</span>
+                        </label>
+                        <input type="radio" name="gender" id="female" value="female" required>
+                        <label for="female" class="gender-card">
+                            <div class="gender-icon">👩</div>
+                            <span>Femme</span>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <span>REJOINDRE LA PARTIE</span>
+                </button>
+            </form>
+            
+            <div class="players-list" id="playersList">
+                <h3>Joueurs inscrits</h3>
+                <div class="players-grid" id="playersGrid"></div>
+            </div>
+            
+            <button class="btn-secondary" id="startGameBtn" onclick="showModeSelection()" style="display: none;">
+                <span>🎰 CHOISIR LE MODE</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Écran de sélection du mode -->
+    <section id="modeSelection" class="screen">
+        <div class="container">
+            <button class="btn-back" onclick="showRegistration()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <h2 class="section-title">CHOISIS TON MODE</h2>
+            <p class="mode-subtitle">Plus c'est chaud, plus les gages sont intenses... 🔥</p>
+            
+            <div class="mode-cards">
+                <div class="mode-card safe" onclick="selectMode('safe')">
+                    <div class="mode-icon">😇</div>
+                    <h3>SAFE</h3>
+                    <p>Pour les timides</p>
+                    <div class="mode-prizes">💰 2€ - 5€ - 10€</div>
+                </div>
+                
+                <div class="mode-card medium" onclick="selectMode('medium')">
+                    <div class="mode-icon">😏</div>
+                    <h3>MEDIUM</h3>
+                    <p>On commence à rigoler</p>
+                    <div class="mode-prizes">💰 10€ - 25€ - 50€</div>
+                </div>
+                
+                <div class="mode-card hard" onclick="selectMode('hard')">
+                    <div class="mode-icon">🔥</div>
+                    <h3>HARD</h3>
+                    <p>Pas pour les fragiles</p>
+                    <div class="mode-prizes">💰 50€ - 100€ - 500€</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Écran de jeu -->
+    <section id="game" class="screen">
+        <div class="container game-container">
+            <div class="game-header">
+                <h2 class="current-player">C'est au tour de <span id="currentPlayerName">???</span></h2>
+            </div>
+            
+            <div class="wheel-wrapper">
+                <div class="wheel-pointer"></div>
+                <div class="wheel-container">
+                    <canvas id="wheelCanvas" width="400" height="400"></canvas>
+                </div>
+                <div class="wheel-center">
+                    <span>🎲</span>
+                </div>
+            </div>
+            
+            <button class="btn-spin" id="spinBtn" onclick="spinWheel()">
+                <span>TOURNER LA ROUE</span>
+            </button>
+            
+            <div class="players-turn-list" id="playersTurnList"></div>
+            
+            <button class="btn-stop" onclick="stopGame()">
+                <span>🛑 ARRÊTER LA PARTIE</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Modal du gage -->
+    <div id="gageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="gage-emoji">🔥</div>
+                <h2>GAGE !</h2>
+            </div>
+            <div class="gage-text" id="gageText"></div>
+            <button class="btn-primary" onclick="closeModal()">
+                <span>C'EST FAIT !</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
